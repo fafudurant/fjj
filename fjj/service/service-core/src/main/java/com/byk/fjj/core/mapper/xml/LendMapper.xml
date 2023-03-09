@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byk.fjj.core.mapper.LendMapper">
+
+    <!--标的列表(分页)List<Lend> selectLendPageList(Long page, Long limit);-->
+    <select id="selectLendPageList" resultType="com.byk.fjj.core.pojo.entity.Lend">
+        SELECT
+            l.*,
+            b.name,
+            b.mobile
+        FROM
+            lend AS l
+                LEFT JOIN borrower AS b ON l.user_id = b.user_id
+        WHERE l.is_deleted = 0
+        ORDER BY l.id DESC
+        LIMIT ${(page-1)*limit},${limit};
+    </select>
+</mapper>

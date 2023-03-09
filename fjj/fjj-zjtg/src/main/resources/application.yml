@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: fjj-zjtg
+  profiles:
+    active: dev

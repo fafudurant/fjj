@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byk.fjj.core.mapper.BorrowInfoMapper">
+
+    <!--借款信息列表 List<BorrowInfo> selectBorrowInfoList();-->
+    <select id="selectBorrowInfoList" resultType="com.byk.fjj.core.pojo.entity.BorrowInfo">
+        SELECT
+            bi.*,
+            b.name,
+            b.mobile
+        FROM
+            borrow_info AS bi
+                LEFT JOIN borrower AS b ON bi.user_id = b.user_id
+        WHERE bi.is_deleted = 0
+    </select>
+
+    <!--借款信息列表(分页) List<BorrowInfo> selectBorrowInfoPageList(Long page, Long limit);-->
+    <select id="selectBorrowInfoPageList" resultType="com.byk.fjj.core.pojo.entity.BorrowInfo">
+        SELECT
+            bi.*,
+            b.name,
+            b.mobile
+        FROM
+            borrow_info AS bi
+                LEFT JOIN borrower AS b ON bi.user_id = b.user_id
+        WHERE bi.is_deleted = 0
+        ORDER BY bi.id DESC
+        LIMIT ${(page-1)*limit},${limit};
+    </select>
+</mapper>
